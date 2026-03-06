@@ -58,7 +58,11 @@ export default function FixedDeposit() {
       setAmount("");
       setMsg("✅ Fixed deposit created");
     } catch (e) {
-      setMsg(e?.response?.data?.message || e?.response?.data?.error || "Create fixed failed");
+      setMsg(
+        e?.response?.data?.message ||
+          e?.response?.data?.error ||
+          "Create fixed failed"
+      );
     } finally {
       setLoading(false);
     }
@@ -69,13 +73,32 @@ export default function FixedDeposit() {
 
     try {
       setLoading(true);
-      const res = await axios.post(`${API}/user/${userId}/fixed/withdraw/${fixedId}`);
+      const res = await axios.post(
+        `${API}/user/${userId}/fixed/withdraw/${fixedId}`
+      );
 
       setMainBalance(res.data.balance);
       setFixedDeposits(res.data.fixedDeposits || []);
-      setMsg("✅ Fixed deposit withdrawn");
+
+      if (res.data.withdrawalType === "early") {
+        setMsg(
+          `✅ Early withdrawal successful. Amount received: $${Number(
+            res.data.withdrawnAmount || 0
+          ).toFixed(2)}`
+        );
+      } else {
+        setMsg(
+          `✅ Fixed deposit withdrawn successfully. Amount received: $${Number(
+            res.data.withdrawnAmount || 0
+          ).toFixed(2)}`
+        );
+      }
     } catch (e) {
-      setMsg(e?.response?.data?.message || e?.response?.data?.error || "Withdraw failed");
+      setMsg(
+        e?.response?.data?.message ||
+          e?.response?.data?.error ||
+          "Withdraw failed"
+      );
     } finally {
       setLoading(false);
     }
@@ -101,7 +124,6 @@ export default function FixedDeposit() {
             </p>
           </div>
 
-          {/* CREATE FIXED */}
           <div className="mt-6 grid gap-3">
             <input
               value={amount}
@@ -133,7 +155,6 @@ export default function FixedDeposit() {
             </button>
           </div>
 
-          {/* LIST */}
           <div className="mt-8">
             <h2 className="text-lg font-semibold mb-3">Your Fixed Deposits</h2>
 
@@ -144,6 +165,7 @@ export default function FixedDeposit() {
                 {fixedDeposits.map((fd) => {
                   const matured = isMatured(fd.maturityDate);
                   const active = fd.status === "active";
+                  const canWithdraw = matured || fd.earlyWithdrawAllowed;
 
                   return (
                     <div key={fd._id} className="border rounded p-4">
@@ -170,20 +192,45 @@ export default function FixedDeposit() {
                         <p>Start: {new Date(fd.startDate).toLocaleDateString()}</p>
                         <p>Maturity: {new Date(fd.maturityDate).toLocaleDateString()}</p>
                         <p>Interest: ${Number(fd.expectedInterest || 0).toFixed(2)}</p>
-                        <p>Total at maturity: ${Number(fd.totalAtMaturity || 0).toFixed(2)}</p>
+                        <p>
+                          Total at maturity: $
+                          {Number(fd.totalAtMaturity || 0).toFixed(2)}
+                        </p>
+
+                        <p>
+                          Early withdrawal allowed:{" "}
+                          <strong>{fd.earlyWithdrawAllowed ? "Yes" : "No"}</strong>
+                        </p>
+
+                        {!matured && fd.earlyWithdrawAllowed && (
+                          <>
+                            <p>
+                              Penalty rate:{" "}
+                              {(Number(fd.earlyWithdrawalPenaltyRate || 0) * 100).toFixed(2)}%
+                            </p>
+                            <p>
+                              Amount you will receive now: $
+                              {Number(fd.earlyWithdrawalAmount || 0).toFixed(2)}
+                            </p>
+                          </>
+                        )}
                       </div>
 
                       {active && (
                         <button
                           onClick={() => withdrawFixed(fd._id)}
-                          disabled={loading || !matured}
+                          disabled={loading || !canWithdraw}
                           className={`mt-3 px-4 py-2 rounded text-white ${
-                            loading || !matured
+                            loading || !canWithdraw
                               ? "bg-green-300 cursor-not-allowed"
                               : "bg-green-600"
                           }`}
                         >
-                          {matured ? "Withdraw" : "Not Matured Yet"}
+                          {matured
+                            ? "Withdraw"
+                            : fd.earlyWithdrawAllowed
+                            ? "Withdraw Early"
+                            : "Not Matured Yet"}
                         </button>
                       )}
                     </div>

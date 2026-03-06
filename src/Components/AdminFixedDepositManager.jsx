@@ -7,18 +7,20 @@ export default function AdminFixedDepositManager() {
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [resettingUserId, setResettingUserId] = useState(null);
+  const [processingFixedId, setProcessingFixedId] = useState(null);
+  const [deletingFixedId, setDeletingFixedId] = useState(null);
   const [msg, setMsg] = useState("");
 
   const fetchUsers = async () => {
     try {
       setLoadingUsers(true);
-      const res = await axios.get(`${API}/admin/users`);
+      const res = await axios.get(`${API}/admin/users/fixed-deposits`);
       setUsers(res.data || []);
     } catch (e) {
       setMsg(
         e?.response?.data?.message ||
           e?.response?.data?.error ||
-          "Failed to load users"
+          "Failed to load fixed deposits"
       );
     } finally {
       setLoadingUsers(false);
@@ -45,6 +47,51 @@ export default function AdminFixedDepositManager() {
       );
     } finally {
       setResettingUserId(null);
+    }
+  };
+
+  const allowEarlyWithdraw = async (userId, fixedId) => {
+    setMsg("");
+    try {
+      setProcessingFixedId(fixedId);
+
+      await axios.post(
+        `${API}/admin/user/${userId}/fixed/${fixedId}/allow-early-withdraw`,
+        {
+          penaltyRate: 0.1,
+        }
+      );
+
+      setMsg("✅ Early withdrawal enabled successfully");
+      await fetchUsers();
+    } catch (e) {
+      setMsg(
+        e?.response?.data?.message ||
+          e?.response?.data?.error ||
+          "Failed to allow early withdrawal"
+      );
+    } finally {
+      setProcessingFixedId(null);
+    }
+  };
+
+  const deleteWithdrawnFixed = async (userId, fixedId) => {
+    setMsg("");
+    try {
+      setDeletingFixedId(fixedId);
+
+      await axios.delete(`${API}/admin/user/${userId}/fixed/${fixedId}`);
+
+      setMsg("✅ Withdrawn fixed deposit deleted successfully");
+      await fetchUsers();
+    } catch (e) {
+      setMsg(
+        e?.response?.data?.message ||
+          e?.response?.data?.error ||
+          "Failed to delete withdrawn fixed deposit"
+      );
+    } finally {
+      setDeletingFixedId(null);
     }
   };
 
@@ -88,7 +135,7 @@ export default function AdminFixedDepositManager() {
             const totalInterest = getTotalInterest(fixedDeposits);
 
             return (
-              <div key={u._id} className="border rounded-lg p-4">
+              <div key={u.id} className="border rounded-lg p-4">
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div>
                     <p className="font-semibold text-lg">{u.name}</p>
@@ -96,11 +143,8 @@ export default function AdminFixedDepositManager() {
 
                     <div className="mt-2 text-sm text-gray-700 space-y-1">
                       <p>
-                        <strong>Main Balance:</strong> $
-                        {Number(u.balance || 0).toFixed(2)}
-                      </p>
-                      <p>
-                        <strong>Fixed Count:</strong> {fixedDeposits.length}
+                        <strong>Active Fixed Count:</strong>{" "}
+                        {activeFixedDeposits.length}
                       </p>
                       <p>
                         <strong>Active Locked Amount:</strong> $
@@ -114,15 +158,15 @@ export default function AdminFixedDepositManager() {
                   </div>
 
                   <button
-                    onClick={() => resetFixed(u._id)}
-                    disabled={resettingUserId === u._id}
+                    onClick={() => resetFixed(u.id)}
+                    disabled={resettingUserId === u.id}
                     className={`px-4 py-2 rounded text-white ${
-                      resettingUserId === u._id
+                      resettingUserId === u.id
                         ? "bg-red-300 cursor-not-allowed"
                         : "bg-red-600"
                     }`}
                   >
-                    {resettingUserId === u._id ? "Resetting..." : "Reset Fixed"}
+                    {resettingUserId === u.id ? "Resetting..." : "Reset Fixed"}
                   </button>
                 </div>
 
@@ -186,6 +230,63 @@ export default function AdminFixedDepositManager() {
                               <strong>Total At Maturity:</strong> $
                               {Number(fd.totalAtMaturity || 0).toFixed(2)}
                             </p>
+                            <p>
+                              <strong>Early Withdraw Allowed:</strong>{" "}
+                              {fd.earlyWithdrawAllowed ? "Yes" : "No"}
+                            </p>
+                            <p>
+                              <strong>Penalty Rate:</strong>{" "}
+                              {(
+                                Number(fd.earlyWithdrawalPenaltyRate || 0) * 100
+                              ).toFixed(2)}
+                              %
+                            </p>
+                            <p>
+                              <strong>Early Withdrawal Amount:</strong> $
+                              {Number(fd.earlyWithdrawalAmount || 0).toFixed(2)}
+                            </p>
+                            <p>
+                              <strong>Withdrawn At:</strong>{" "}
+                              {fd.withdrawnAt
+                                ? new Date(fd.withdrawnAt).toLocaleDateString()
+                                : "-"}
+                            </p>
+                          </div>
+
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {fd.status === "active" && !fd.earlyWithdrawAllowed && (
+                              <button
+                                onClick={() => allowEarlyWithdraw(u.id, fd._id)}
+                                disabled={processingFixedId === fd._id}
+                                className={`px-4 py-2 rounded text-white ${
+                                  processingFixedId === fd._id
+                                    ? "bg-yellow-300 cursor-not-allowed"
+                                    : "bg-yellow-600"
+                                }`}
+                              >
+                                {processingFixedId === fd._id
+                                  ? "Processing..."
+                                  : "Allow Early Withdraw"}
+                              </button>
+                            )}
+
+                            {fd.status === "withdrawn" && (
+                              <button
+                                onClick={() =>
+                                  deleteWithdrawnFixed(u.id, fd._id)
+                                }
+                                disabled={deletingFixedId === fd._id}
+                                className={`px-4 py-2 rounded text-white ${
+                                  deletingFixedId === fd._id
+                                    ? "bg-red-300 cursor-not-allowed"
+                                    : "bg-red-600"
+                                }`}
+                              >
+                                {deletingFixedId === fd._id
+                                  ? "Deleting..."
+                                  : "Delete"}
+                              </button>
+                            )}
                           </div>
                         </div>
                       ))}
