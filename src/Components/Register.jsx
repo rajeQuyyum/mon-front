@@ -301,10 +301,10 @@ const Register = () => {
             <NavLink to="/login">
               <h4>Login</h4>
             </NavLink>
-            <NavLink className="flex items-center" to="/ct">
+            {/* <NavLink className="flex items-center" to="/ct">
               <h4>Contact Us</h4>
               <CiMail className="text-lg bg-blue-500" />
-            </NavLink>
+            </NavLink> */}
           </div>
         </form>
       </div>
