@@ -102,6 +102,30 @@ export default function Home() {
     { code: "sv", label: "Svenska (Swedish)" },
     { code: "nl", label: "Nederlands (Dutch)" },
     { code: "el", label: "Ελληνικά (Greek)" },
+    { code: "sq", label: "Shqip (Albanian)" },
+{ code: "bs", label: "Bosanski (Bosnian)" },
+{ code: "bg", label: "Български (Bulgarian)" },
+{ code: "ca", label: "Català (Catalan)" },
+{ code: "hr", label: "Hrvatski (Croatian)" },
+{ code: "cs", label: "Čeština (Czech)" },
+{ code: "da", label: "Dansk (Danish)" },
+{ code: "et", label: "Eesti (Estonian)" },
+{ code: "fi", label: "Suomi (Finnish)" },
+{ code: "hu", label: "Magyar (Hungarian)" },
+{ code: "is", label: "Íslenska (Icelandic)" },
+{ code: "ga", label: "Gaeilge (Irish)" },
+{ code: "lv", label: "Latviešu (Latvian)" },
+{ code: "lt", label: "Lietuvių (Lithuanian)" },
+{ code: "mk", label: "Македонски (Macedonian)" },
+{ code: "mt", label: "Malti (Maltese)" },
+{ code: "no", label: "Norsk (Norwegian)" },
+{ code: "sk", label: "Slovenčina (Slovak)" },
+{ code: "sl", label: "Slovenščina (Slovenian)" },
+{ code: "sr", label: "Српски (Serbian)" },
+{ code: "cy", label: "Cymraeg (Welsh)" },
+{ code: "eu", label: "Euskara (Basque)" },
+{ code: "gl", label: "Galego (Galician)" },
+{ code: "lb", label: "Lëtzebuergesch (Luxembourgish)" }
   ];
 
   const filteredLanguages = languages.filter((l) =>
@@ -360,30 +384,70 @@ export default function Home() {
       </NavLink>
 
       <div className="">
-        <div className="flex flex-col gap-5 justify-between items-center text-black font-serif mb-10 px-3">
-          <h1 className="text-2xl text-gray-800">
-            Welcome To Dirrox Financial
-          </h1>
-          <p>
-            At Dirrox Financial, we provide fast, secured, and reliable financial
-            solutions to individuals and businesses. Helping you achieve your
-            financial goals with ease.
-          </p>
+        <div className="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-10 items-start">
 
-          <h1 className="underline">Our Mission:</h1>
-          <p>• Security: Robust measures to safeguard your financial information</p>
-          <p>• Reliability: Trustworthy and transparent banking practices</p>
+  {/* LEFT SIDE INTRO */}
+  <div className="flex flex-col gap-6 text-gray-800 font-serif">
+    <h1 className="text-3xl font-semibold">
+      Welcome To Dirrox Financial
+    </h1>
 
-          <h1 className="underline">What We Offer:</h1>
-          <p>• Savings solutions tailored to your goals</p>
-          <p>• Expert financial guidance</p>
+    <p className="text-gray-600 leading-relaxed">
+      Dirrox Financial provides fast, secure, and reliable financial
+      services designed for individuals and businesses. Our mission is to
+      make banking simple while helping you grow, protect, and manage your
+      money with confidence.
+    </p>
 
-          <h1 className="underline">Why Choose Dirrox Financial?</h1>
-          <p>• Fast approval and disbursement</p>
-          <p>• Competitive interest rates</p>
-          <p>• Personalized service</p>
-        </div>
+    <div className="bg-gray-100 p-6 rounded-lg shadow-sm">
+      <h2 className="text-lg font-semibold mb-3">Our Mission</h2>
 
+      <ul className="space-y-2 text-gray-700">
+        <li>• Security: Advanced protection for your financial data</li>
+        <li>• Reliability: Transparent and trusted banking services</li>
+        <li>• Accessibility: Banking solutions available anytime</li>
+      </ul>
+    </div>
+  </div>
+
+  {/* RIGHT SIDE FEATURES */}
+  <div className="grid gap-6">
+
+    <div className="bg-white border rounded-lg p-5 shadow-sm">
+      <h2 className="font-semibold text-lg mb-2">Savings Solutions</h2>
+      <p className="text-gray-600 text-sm">
+        Flexible savings accounts designed to help you grow your money
+        securely over time.
+      </p>
+    </div>
+
+    <div className="bg-white border rounded-lg p-5 shadow-sm">
+      <h2 className="font-semibold text-lg mb-2">Fixed Deposit</h2>
+      <p className="text-gray-600 text-sm">
+        Lock your funds for a fixed period and earn guaranteed interest
+        with competitive returns.
+      </p>
+    </div>
+
+    <div className="bg-white border rounded-lg p-5 shadow-sm">
+      <h2 className="font-semibold text-lg mb-2">Loans</h2>
+      <p className="text-gray-600 text-sm">
+        Quick and flexible loan options with fast approval and simple
+        repayment plans.
+      </p>
+    </div>
+
+    <div className="bg-white border rounded-lg p-5 shadow-sm">
+      <h2 className="font-semibold text-lg mb-2">Financial Guidance</h2>
+      <p className="text-gray-600 text-sm">
+        Expert advice and tools to help you make smarter financial
+        decisions for the future.
+      </p>
+    </div>
+
+  </div>
+
+</div>
         <div className="flex items-center justify-center text-2xl text-white font-serif gap-5 py-8">
           <NavLink
             className="bg-[rgb(67,67,109)] w-fit py-2 px-3 rounded-full hover:border-b"
