@@ -1,0 +1,44 @@
+{
+  "type": "Compass Connections",
+  "version": {
+    "$numberInt": "1"
+  },
+  "connections": [
+    {
+      "id": "905478d1-e74c-40e3-ad9b-54de80de814b",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1759836857716"
+        }
+      },
+      "favorite": {
+        "name": "quyyum.kwfc1ux.mongodb.net"
+      },
+      "savedConnectionType": "recent",
+      "connectionOptions": {
+        "connectionString": "mongodb+srv://rajevictory_db_user:rTREEl9HnOGPAz0L@quyyum.kwfc1ux.mongodb.net/?retryWrites=true&w=majority&appName=Quyyum",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjoxLCJzdGF0ZSI6W119"
+        }
+      }
+    },
+    {
+      "id": "d441e50d-cfb1-4689-8572-bd8fd84504a6",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1759411652908"
+        }
+      },
+      "favorite": {
+        "name": "raje"
+      },
+      "savedConnectionType": "favorite",
+      "connectionOptions": {
+        "connectionString": "mongodb://localhost:27017/",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjoxLCJzdGF0ZSI6W119"
+        }
+      }
+    }
+  ]
+}

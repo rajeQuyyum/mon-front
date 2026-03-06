@@ -1,0 +1,69 @@
+[{
+  "_id": {
+    "$oid": "68de8a6b02c8cc8cb6cffdf5"
+  },
+  "//": "const",
+  "models/Admin": {
+    "js": "mongoose"
+  }
+},
+{
+  "_id": {
+    "$oid": "68de8a6b02c8cc8cb6cffdf6"
+  }
+},
+{
+  "_id": {
+    "$oid": "68de8a6b02c8cc8cb6cffdf7"
+  },
+  "//": "const",
+  "models/Admin": {
+    "js": "AdminSchema"
+  }
+},
+{
+  "_id": {
+    "$oid": "68de8a6b02c8cc8cb6cffdf8"
+  }
+},
+{
+  "_id": {
+    "$oid": "68de8a6b02c8cc8cb6cffdf9"
+  }
+},
+{
+  "_id": {
+    "$oid": "68de8a6b02c8cc8cb6cffdfa"
+  },
+  "//": "})"
+},
+{
+  "_id": {
+    "$oid": "68de8a6b02c8cc8cb6cffdfb"
+  }
+},
+{
+  "_id": {
+    "$oid": "68de8a6b02c8cc8cb6cffdfc"
+  },
+  "//": "const",
+  "models/Admin": {
+    "js": "AdminModel"
+  }
+},
+{
+  "_id": {
+    "$oid": "68de8a6b02c8cc8cb6cffdfd"
+  },
+  "//": "module.exports",
+  "models/Admin": {
+    "js": "="
+  }
+},
+{
+  "_id": {
+    "$oid": "68de8b3002c8cc8cb6cffdff"
+  },
+  "username": "admin",
+  "password": "12345"
+}]

@@ -1,0 +1,294 @@
+ 
+
+ 
+body{
+    background-color: whitesmoke;
+   
+}
+
+
+.background .shape{
+   
+    border-radius: 50%;
+    
+}
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: -80px;
+    top: -130px;
+   
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -30px;
+    bottom: -150px;
+    
+}
+form{
+  
+    width: 400px;
+    /* background-color: rgba(255,255,255,0.13); */
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: white;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: gray;
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+::placeholder{
+    color: black;
+}
+.button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: rgb(67, 67, 109);
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.social{
+  margin-top: 30px;
+  display: flex;
+}
+.social div{
+  background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #eaf0fb;
+  text-align: center;
+}
+.social div:hover{
+  background-color: rgba(255,255,255,0.47);
+}
+.social .fb{
+  margin-left: 25px;
+}
+.social i{
+  margin-right: 4px;
+}
+.hom{
+    color: red;
+}
+
+.big{
+   background: linear-gradient(-70deg, purple, gray,rgb(227, 158, 227),aqua);
+ }
+ .big2{
+    background: linear-gradient(-70deg, rgb(123, 144, 123),brown,pink);
+ }
+ .big3{
+    background: linear-gradient(-70deg, rgb(61, 61, 67), navy,rgb(227, 158, 227), gold);
+ }
+
+ .chat_list {
+    height: 75vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.jig{
+    background-image: url(../src/assets/image5.png);
+   background-repeat: no-repeat;
+   background-size: cover;
+   
+
+   
+}
+
+
+.jig2{
+  position: relative;
+  overflow: hidden;
+}
+
+.jig2::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(../src/assets/image3.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(7px);
+  transform: scale(1.1); /* prevents blur edges */
+  z-index: -1;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+.ji2{
+  background-color: #f09819;
+}
+.fsb {
+  background-image: url(../src/assets/fabs2.png);
+  background-repeat:no-repeat;
+  background-size: cover; /* ensures it fills the container */
+  background-position: center; /* keeps image centered */
+  width: 100%;
+  height: 100vh; /* makes it fill the viewport height */
+}
+
+/* Optional: fine-tune for smaller screens */
+@media (max-width: 768px) {
+  .fsb {
+    background-size: contain; /* shows the whole image */
+    background-position: center;
+    height: 100vh; /* slightly smaller height for mobile */
+     
+  }
+}
+
+@media (max-width: 480px) {
+  .fsb {
+    background-size: contain;
+    background-position: center;
+    height: 100svh;
+    /* background-position: 100vh; */
+    
+  }
+}
+
+
+
+
+
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-message {
+  animation: slideUpFade 0.3s ease-in-out;
+}
+
+@keyframes highlightFade {
+  0% {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.highlight-message {
+  animation: highlightFade 1.2s ease-out;
+}
+
+
+
+/* Hide Google banner */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+  
+}
+
+/* Hide default text */
+.goog-te-gadget {
+  color: transparent !important;
+}
+.goog-te-gadget .goog-te-combo {
+  color: #000 !important;
+}
+
+/* Fix z-index */
+.goog-te-menu-frame.skiptranslate {
+  z-index: 999999 !important;
+  height: auto !important;
+  width: auto !important;
+  overflow: visible !important;
+  background: #fff !important;
+}
+
+html,body{
+  width: 100%;
+  overflow-x: hidden;
+}
+.bad{
+  background-color: gray;
+}
+.loan-form {
+  position: static !important;
+  transform: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  backdrop-filter: none !important;
+}
+
+.loan-form *{
+  color: #111 !important;
+  border: initial !important;
+}
+
+
+
+
+
+
